@@ -19,3 +19,18 @@ choice = choice.strip().lower()
 message = message.strip()
 
 print("\nYou entered:", message)
+
+
+def format_text(text):
+    # Removes extra spaces
+    return text.strip()
+message = format_text(message)
+
+def encrypt(text):
+    shift = 3
+    result = ""
+
+    for char in text:
+        result += char  # placeholder
+
+    return result
