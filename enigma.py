@@ -31,6 +31,12 @@ def encrypt(text):
     result = ""
 
     for char in text:
-        result += char  # placeholder
-
+        if char.islower():
+            new_char = chr((ord(char) - 97 + shift) % 26 + 97) # ord() gives the ASCII value of the character, we shift it, and then convert back to character
+            result += new_char
+        elif char.isupper(): # Check if the character is an uppercase letter
+            new_char = chr((ord(char) - 65 + shift) % 26 + 65) # Similar to the lowercase case, but we use 65 for uppercase letters
+            result += new_char
+        else:
+            result += char
     return result
