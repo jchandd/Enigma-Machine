@@ -40,3 +40,28 @@ def encrypt(text):
         else:
             result += char
     return result
+
+def decrypt(text):
+    shift = 3
+    result = ""
+
+    for char in text:
+        if char.islower():
+            new_char = chr((ord(char) - 97 - shift) % 26 + 97)
+            result += new_char
+        elif char.isupper():
+            new_char = chr((ord(char) - 65 - shift) % 26 + 65)
+            result += new_char
+        else:
+            result += char
+
+    return result
+
+if choice == "encrypt":
+    output = encrypt(message)
+    print("Encrypted message:", output)
+elif choice == "decrypt":
+    output = decrypt(message)
+    print("Decrypted message:", output)
+else:
+    print("Please choose either 'encrypt' or 'decrypt'.")
