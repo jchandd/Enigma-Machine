@@ -47,3 +47,31 @@ def encrypt(text):
         else:
             result += char
     return result
+
+
+def decrypt(text):
+    shift = 3  # You can change this value to increase or decrease the shift
+    result = ""
+
+    for char in text:
+        if char.islower():
+            new_char = chr(
+                (ord(char) - 97 - shift) % 26 + 97
+            )  # Similar to the encrypt function, but we subtract the shift instead of adding it
+            result += new_char
+        elif char.isupper():  # Check if the character is an uppercase letter
+            new_char = chr(
+                (ord(char) - 65 - shift) % 26 + 65
+            )  # Similar to the lowercase case, but we use 65 for uppercase letters
+            result += new_char
+        else:
+            result += char
+    return result
+
+
+if choice == "encrypt":
+    encrypted_message = encrypt(message)
+    print("Encrypted message:", encrypted_message)
+elif choice == "decrypt":
+    decrypted_message = decrypt(message)
+    print("Decrypted message:", decrypted_message)
