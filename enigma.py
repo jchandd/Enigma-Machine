@@ -11,16 +11,26 @@
 
 print("Caesar Cipher Program")
 
-choice = input("Would you like to encrypt or decrypt? ")
-message = input("Enter your message: ")
+def main():
+    print("Caesar Cipher Program")
 
-# Clean inputs
-choice = choice.strip().lower()
-message = message.strip()
+    # Get user input
+    choice = input("Encrypt or decrypt? ").strip().lower()
+    message = input("Enter your message: ").strip()
+    shift = int(input("Enter shift value: "))
 
-print("\nYou entered:", message)
+    # Store in dictionary
+    data = {
+        "message": message,
+        "shift": shift
+    }
+
+    print("\nData stored successfully!")
+    print("Message:", data["message"])
+    print("Shift:", data["shift"])
 
 
+<<<<<<< HEAD
 def format_text(text):
     # Removes extra spaces
     return text.strip()
@@ -78,3 +88,7 @@ elif choice == "decrypt":
     print("Decrypted message:", decrypted_message)
 else:
     print("Invalid choice. Please choose 'encrypt' or 'decrypt'.")
+=======
+if __name__ == "__main__":
+    main()
+>>>>>>> a7178de5b10c1efe13ac5ed86e95572f0aab76c6
