@@ -14,68 +14,59 @@ print("Caesar Cipher Program")
 
 
 def format_text(text):
-    # Removes extra spaces
     return text.strip()
 
 
-def encrypt(data): # using dictionnary
+def encrypt(data):
     text = data["message"]
-    shift = data["shift"]
+    shift = data["shift"] % 26  # keep shift within alphabet range
     result = ""
 
     for char in text:
         if char.islower():
-            new_char = chr(
-                (ord(char) - 97 + shift) % 26 + 97
-            )  # ord() gives the ASCII value of the character, we shift it, and then convert back to character
-            result += new_char
-        elif char.isupper():  # Check if the character is an uppercase letter
-            new_char = chr(
-                (ord(char) - 65 + shift) % 26 + 65
-            )  # Similar to the lowercase case, but we use 65 for uppercase letters
-            result += new_char
+            result += chr((ord(char) - 97 + shift) % 26 + 97)
+        elif char.isupper():
+            result += chr((ord(char) - 65 + shift) % 26 + 65)
         else:
             result += char
+
     return result
 
 
-def decrypt(data): # using dictionnary
-    data["shift"] = -data["shift"] # We can simply negate the shift to decrypt, since the Caesar cipher is symmetric. This way, we can reuse the encrypt function for decryption.
-    return encrypt(data)
-
-
-
+def decrypt(data):
+    # Do NOT modify original shift permanently
+    new_data = {
+        "message": data["message"],
+        "shift": -data["shift"]
+    }
+    return encrypt(new_data)
 
 
 def main():
-    choice = input("Do you want to encrypt or decrypt a message? (Type 'encrypt' or 'decrypt'): ").lower()
+    choice = input("Encrypt or decrypt? (encrypt/decrypt): ").strip().lower()
     message = input("Enter your message: ")
-    shift = int(input("Enter the shift value (number of positions to shift): "))
+    
+    # Handle invalid shift input safely
+    try:
+        shift = int(input("Enter shift value: "))
+    except ValueError:
+        print("Shift must be a number.")
+        return
 
-  # Clean Inputs
-choice = choice.strip().lower()
-message = format_text(message)
+    message = format_text(message)
 
-print("\nYou entered:", message)
+    data = {  # Use a dictionary to pass data to functions
+        "message": message,
+        "shift": shift
+    }
 
-# Code for storing data in a dictionary
-data = {
-    "message": message,
-    "shift": shift
-}
-
-if choice == "encrypt":
-    result = encrypt(data)
-    print("\nEncrypted message:", result)
-elif choice == "decrypt":
-    result = decrypt(data)
-    print("\nDecrypted message:", result)
-else:
-    print("Please choose either 'encrypt' or 'decrypt'.")
-
+    if choice == "encrypt":
+        print("\nEncrypted message:", encrypt(data))
+    elif choice == "decrypt":
+        print("\nDecrypted message:", decrypt(data))
+    else:
+        print("Invalid choice. Please type 'encrypt' or 'decrypt'.")
 
 
 if __name__ == "__main__":
     main()
-
-
