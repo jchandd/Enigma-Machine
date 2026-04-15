@@ -9,66 +9,45 @@
 # If decrypt → call decrypt function
 # Show result
 
+
 print("Caesar Cipher Program")
 
-choice = input("Would you like to encrypt or decrypt? ")
-message = input("Enter your message: ")
-
-# Clean inputs
-choice = choice.strip().lower()
-message = message.strip()
-
-print("\nYou entered:", message)
+SHIFT = 3  # fixed Caesar shift
 
 
 def format_text(text):
-    # Removes extra spaces
     return text.strip()
 
 
-message = format_text(message)
-
-
-def encrypt(text):
-    shift = 3  # You can change this value to increase or decrease the shift
+def encrypt(message):
     result = ""
 
-    for char in text:
+    for char in message:
         if char.islower():
-            new_char = chr(
-                (ord(char) - 97 + shift) % 26 + 97
-            )  # ord() gives the ASCII value of the character, we shift it, and then convert back to character
-            result += new_char
-        elif char.isupper():  # Check if the character is an uppercase letter
-            new_char = chr(
-                (ord(char) - 65 + shift) % 26 + 65
-            )  # Similar to the lowercase case, but we use 65 for uppercase letters
-            result += new_char
+            result += chr((ord(char) - 97 + SHIFT) % 26 + 97)
+        elif char.isupper():
+            result += chr((ord(char) - 65 + SHIFT) % 26 + 65)
         else:
             result += char
+
     return result
 
 
-def decrypt(text):
-    shift = 3  # You can change this value to increase or decrease the shift
+def decrypt(message):
     result = ""
 
-    for char in text:
+    for char in message:
         if char.islower():
-            new_char = chr(
-                (ord(char) - 97 - shift) % 26 + 97
-            )  # Similar to the encrypt function, but we subtract the shift instead of adding it
-            result += new_char
-        elif char.isupper():  # Check if the character is an uppercase letter
-            new_char = chr(
-                (ord(char) - 65 - shift) % 26 + 65
-            )  # Similar to the lowercase case, but we use 65 for uppercase letters
-            result += new_char
+            result += chr((ord(char) - 97 - SHIFT) % 26 + 97)
+        elif char.isupper():
+            result += chr((ord(char) - 65 - SHIFT) % 26 + 65)
         else:
             result += char
+
     return result
 
 
+<<<<<<< HEAD
 if choice == "encrypt":
     encrypted_message = encrypt(message)
     print("Encrypted message:", encrypted_message)
@@ -77,3 +56,32 @@ elif choice == "decrypt":
     print("Decrypted message:", decrypted_message)
 else:
     print("Invalid choice. Please choose 'encrypt' or 'decrypt'.")
+=======
+def get_choice():
+    while True:
+        choice = input("Encrypt or decrypt? (encrypt/decrypt): ").strip().lower()
+        if choice == "encrypt" or choice == "decrypt":
+            return choice
+        else:
+            print("Invalid choice. Please type 'encrypt' or 'decrypt'.")
+
+
+def main():
+    while True:
+        choice = get_choice()
+        message = format_text(input("Enter your message: "))
+
+        if choice == "encrypt":
+            print("\nEncrypted message:", encrypt(message))
+        else:
+            print("\nDecrypted message:", decrypt(message))
+
+        again = input("\nDo you want to run again? (y/n): ").strip().lower()
+        if again != "y":
+            print("Goodbye!")
+            break
+
+
+if __name__ == "__main__":
+    main()
+>>>>>>> 8e0b1af4c929160d90279f967191c04ab82f4390
