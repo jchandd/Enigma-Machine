@@ -12,60 +12,51 @@
 
 print("Caesar Cipher Program")
 
+SHIFT = 3  # fixed Caesar shift
+
 
 def format_text(text):
     return text.strip()
 
 
-def encrypt(data):
-    text = data["message"]
-    shift = data["shift"] % 26  # keep shift within alphabet range
+def encrypt(message):
     result = ""
 
-    for char in text:
+    for char in message:
         if char.islower():
-            result += chr((ord(char) - 97 + shift) % 26 + 97)
+            result += chr((ord(char) - 97 + SHIFT) % 26 + 97)
         elif char.isupper():
-            result += chr((ord(char) - 65 + shift) % 26 + 65)
+            result += chr((ord(char) - 65 + SHIFT) % 26 + 65)
         else:
             result += char
 
     return result
 
 
-def decrypt(data):
-    # Do NOT modify original shift permanently
-    new_data = {
-        "message": data["message"],
-        "shift": -data["shift"]
-    }
-    return encrypt(new_data)
+def decrypt(message):
+    result = ""
+
+    for char in message:
+        if char.islower():
+            result += chr((ord(char) - 97 - SHIFT) % 26 + 97)
+        elif char.isupper():
+            result += chr((ord(char) - 65 - SHIFT) % 26 + 65)
+        else:
+            result += char
+
+    return result
 
 
 def main():
     choice = input("Encrypt or decrypt? (encrypt/decrypt): ").strip().lower()
-    message = input("Enter your message: ")
-    
-    # Handle invalid shift input safely
-    try:
-        shift = int(input("Enter shift value: "))
-    except ValueError:
-        print("Shift must be a number.")
-        return
-
-    message = format_text(message)
-
-    data = {  # Use a dictionary to pass data to functions
-        "message": message,
-        "shift": shift
-    }
+    message = format_text(input("Enter your message: "))
 
     if choice == "encrypt":
-        print("\nEncrypted message:", encrypt(data))
+        print("\nEncrypted message:", encrypt(message))
     elif choice == "decrypt":
-        print("\nDecrypted message:", decrypt(data))
+        print("\nDecrypted message:", decrypt(message))
     else:
-        print("Invalid choice. Please type 'encrypt' or 'decrypt'.")
+        print("Invalid choice.")
 
 
 if __name__ == "__main__":
