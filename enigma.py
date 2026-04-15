@@ -75,3 +75,5 @@ if choice == "encrypt":
 elif choice == "decrypt":
     decrypted_message = decrypt(message)
     print("Decrypted message:", decrypted_message)
+else:
+    print("Invalid choice. Please choose 'encrypt' or 'decrypt'.")
