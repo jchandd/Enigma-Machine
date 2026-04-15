@@ -9,16 +9,8 @@
 # If decrypt → call decrypt function
 # Show result
 
+
 print("Caesar Cipher Program")
-
-choice = input("Would you like to encrypt or decrypt? ")
-message = input("Enter your message: ")
-
-# Clean inputs
-choice = choice.strip().lower()
-message = message.strip()
-
-print("\nYou entered:", message)
 
 
 def format_text(text):
@@ -26,10 +18,7 @@ def format_text(text):
     return text.strip()
 
 
-message = format_text(message)
-
-
-def encrypt(text):
+def encrypt(data): # using dictionnary
     shift = 3  # You can change this value to increase or decrease the shift
     result = ""
 
@@ -70,8 +59,16 @@ def decrypt(text):
 
 
 if choice == "encrypt":
-    encrypted_message = encrypt(message)
-    print("Encrypted message:", encrypted_message)
+    result = encrypt(message)
+    print("\nEncrypted message:", result)
 elif choice == "decrypt":
-    decrypted_message = decrypt(message)
-    print("Decrypted message:", decrypted_message)
+    result = decrypt(message)
+    print("\nDecrypted message:", result)
+else:
+        print("Please choose either 'encrypt' or 'decrypt'.")
+
+
+if __name__ == "__main__":
+    main()
+
+
