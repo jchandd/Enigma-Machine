@@ -66,8 +66,19 @@ while True:
     if choice not in ["encrypt", "decrypt"]:
         print("Invalid choice. Please choose 'encrypt' or 'decrypt'.")
         continue
-    message = format_text(input("Enter your message: "))
+    message = format_text(
+        input("Enter your message: ")
+    )  # Clean the message by removing extra spaces
     if choice == "encrypt":
         print("\nEncrypted message:", encrypt(message))
     else:
         print("\nDecrypted message:", decrypt(message))
+
+    again = (
+        input("\nDo you want to encrypt/decrypt another message? (yes/no) ")
+        .strip()
+        .lower()
+    )
+    if again != "yes":
+        print("Goodbye!")
+        break
